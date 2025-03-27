@@ -5,6 +5,22 @@ usuarios = {
     "usuario3": "usuario 3"   
 }
 
+# Definir productos con sus precios en un diccionario
+productos = {
+    "1": {"nombre": "Olla Arrocera", "precio": 15000},
+    "2": {"nombre": "Televisor Inteligente", "precio": 175000},
+    "3": {"nombre": "Lavadora", "precio": 270000},
+    "4": {"nombre": "Parlante Musical", "precio": 30000},
+    "5": {"nombre": "Laptop Hp", "precio": 450000},
+    "6": {"nombre": "Salir", "precio": 0},
+}
+
+
+
+
+
+
+
 # Mensaje de bienvenida para los clientes
 print("Bienvenido a la tienda de electrónicos")
 
@@ -25,6 +41,7 @@ def login():
 
 # Función para registrar información del cliente
 def registrar_informacion(): # Solicitar información del cliente, cada input es una solicitud de información diferente
+    print("\nPor favor, ingrese su información para la facturación:")  # Mostrar mensaje de solicitud de información
     nombre = input("Ingrese su nombre completo: ")  
     cedula = input("Ingrese su cédula: ")  
     celular = input("Ingrese su número de celular: ")  
@@ -37,6 +54,7 @@ def registrar_informacion(): # Solicitar información del cliente, cada input es
         "Correo": correo,
         "Dirección": direccion
     }
+   
 
 # Función para mostrar el menú de opciones
 def menu():
@@ -49,7 +67,7 @@ def menu():
     opcion = input("Seleccione una opción: ")  # Solicitar al usuario que seleccione una opción
     return opcion  # Retornar la opción seleccionada
 
-# Función para la venta de paquetes
+# Función 1 para la venta de paquetes
 def venta_paquetes(cliente):
     # Definir los paquetes disponibles con sus precios
     paquetes = {
@@ -101,7 +119,7 @@ def venta_paquetes(cliente):
 
 
 
-# Función para elegir horario
+# Función 2 para elegir horario
 def elegir_horario():
     horarios = ["Mañana (7:00 - 10:00)", "Tarde (11:00 - 2:00)", "Noche (3:00 - 5:00)"]
     
@@ -120,7 +138,86 @@ def elegir_horario():
     except ValueError:
         print("Por favor, ingresa un número válido.")
 
-# Función para facturación
+
+# Función 3 para productos disponibles
+
+def disponibilidad_productos(cliente):
+    while True:
+        print("\nProductos disponibles:")
+        for clave, valor in productos.items():
+            print(f"{clave}. {valor['nombre']} - ₡{valor['precio']:,.2f}") #f"{valor['precio']:,.2f}" es para mostrar el precio con 2 decimales y separador de miles
+
+        opcion = input("Seleccione un producto (1-6) o '0' para volver: ")
+
+        if opcion == '0':
+            break
+        elif opcion == '6':
+            print("Saliendo del programa...")
+            return False
+        elif opcion in productos:
+            producto_seleccionado = productos[opcion]
+            try:
+                cantidad = int(input(f"Ingrese la cantidad de '{producto_seleccionado['nombre']}' que desea comprar: "))
+                if cantidad > 0:   # Validar que la cantidad sea positiva
+                    subtotal = producto_seleccionado["precio"] * cantidad
+                    iva = subtotal * 0.13
+                    total = subtotal + iva
+
+                    print("\nResumen de la compra")
+                    print(f"Producto seleccionado: {producto_seleccionado['nombre']}")
+                    print(f"Cantidad: {cantidad}")
+                    print(f"Precio unitario: ₡{producto_seleccionado['precio']:,.2f}")
+                    print(f"Subtotal: ₡{subtotal:,.2f}")
+                    print(f"IVA (13%): ₡{iva:,.2f}")
+                    print(f"Total a pagar: ₡{total:,.2f}")
+
+                    if "compras" not in cliente:    #not in es un operador de pertenencia
+                        cliente["compras"] = []
+                    cliente["compras"].append({
+                        "producto": producto_seleccionado["nombre"],
+                        "cantidad": cantidad,
+                        "total": total
+                    })
+                else:
+                    print("La cantidad debe ser mayor que 0.")
+            except ValueError:
+                print("Error: Debe ingresar un número válido.")
+        else:
+            print("Opción no válida. Por favor seleccione 1-6.")
+    return True
+
+
+
+#Función 4 para mostrar el historial de compras
+def mostrar_historial(cliente):
+    if "compras" not in cliente or not cliente["compras"]:
+        print("\nNo hay compras registradas en el historial.")
+        return
+    
+    print("\n--- HISTORIAL DE COMPRAS ---")
+    print(f"Cliente: {cliente['Nombre']}")
+    print(f"Cédula: {cliente['Cédula']}")
+    print("---------------------------------")
+    
+    total_general = 0
+    for i, compra in enumerate(cliente["compras"], 1):
+        if "paquete" in compra:  # Para compras de paquetes
+            print(f"{i}. [PAQUETE] {compra['paquete']}")
+        else:  # Para compras de productos individuales
+            print(f"{i}. [PRODUCTO] {compra['producto']}")
+        
+        print(f"   Cantidad: {compra['cantidad']}")
+        print(f"   Precio unitario: ₡{compra['total']/compra['cantidad']:,.3f}")
+        print(f"   Total: ₡{compra['total']:,.3f}")
+        print("---------------------------------")
+        total_general += compra['total']
+    
+    print(f"TOTAL GENERAL: ₡{total_general:,.3f}")
+
+
+
+
+# Función 5 para facturación
 def facturacion(cliente):
     subtotal = float(input("Ingrese el subtotal de la compra:"))  # Solicitar subtotal de la compra
     descuento = float(input("Ingrese el descuento aplicado:"))  # Solicitar descuento aplicado
@@ -146,9 +243,9 @@ if login():  # Si el login es exitoso
         elif opcion == "2":  # Opción 2: Horarios disponibles de atención
             elegir_horario()  # Llamar a la función para elegir horario
         elif opcion == "3":  # Opción 3: Productos disponibles
-            print("Opción 3 seleccionada. (Funcionalidad no implementada en este ejemplo.)")
+            disponibilidad_productos(cliente)  # Llamar a la función para productos disponibles
         elif opcion == "4":  # Opción 4: Historial de compras
-            print("Opción 4 seleccionada. (Funcionalidad no implementada en este ejemplo.)")
+            mostrar_historial(cliente)  # Llamar a la función de historial de compras
         elif opcion == "5":  # Opción 5: Facturación
             facturacion(cliente)  # Llamar a la función de facturación
             break  # Salir del bucle y terminar el programa
