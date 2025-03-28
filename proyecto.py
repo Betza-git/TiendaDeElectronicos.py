@@ -220,7 +220,13 @@ def mostrar_historial(cliente):
 # Función 5 para facturación
 def facturacion(cliente):
     subtotal = float(input("Ingrese el subtotal de la compra:"))  # Solicitar subtotal de la compra
-    descuento = float(input("Ingrese el descuento aplicado:"))  # Solicitar descuento aplicado
+
+    descuento = subtotal - (subtotal * 0.05) 
+         # Calcular descuento del 10% si el subtotal es mayor a 10000
+    if subtotal > 20000:
+        descuento = subtotal * 0.10
+    else:
+        descuento = 0
     iva = subtotal * 0.13  # Calcular el IVA (13% del subtotal)
     total = subtotal - descuento + iva  # Calcular el total a pagar
 
