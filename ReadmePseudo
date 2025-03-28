@@ -1,0 +1,47 @@
+                    Inventario y facturación de tienda de  electrónicos.
+                                Steven Alfaro Madrigal.
+                                Betzabéth Araya Abarca.
+                                Santiago Barrantes Salazar
+                                Luis Bermudez Portilla.
+                Escuela de Informatica,Universidad Fidélitas.San José,Costa Rica.
+salfaro9077@ufide.ac.cr, baraya5927@ufide.ac.cr, sbarrantes40896@ufide.ac.cr,lbermudez10589@ufide ac.cr
+
+                              Profesor:Jordani Moreira Briceno.
+                                      Segundo avance.
+
+
+
+
+Pseudocódigo
+Inicio: 
+1.	Establecer variables, en este caso con los usuarios (usuario 1, 2 y 3) y su contraseña
+2.	Imprimir el mensaje de bienvenida a cada usuario que ingrese al programa 
+3.	Establecer una condición de intentos permitidos para ingresar al login.
+4.	Solicitar el nombre de usuario y su respectiva contraseña, en caso de que estas sean validas imprimimos el mensaje de éxito 
+5.	Agregar un else para reducir los intentos permitidos restantes e imprimir el mensaje de error y retornar en caso de que el login falle 
+6.	Solicitar la información al cliente,  con inputs(nombre completo, cedula, numero de celular, correo electrónico y dirección, para la facturación.
+7.	Retornar un diccionario con toda la información del cliente dada en variables
+8.	Imprimir el menú de opciones, este menú llevara las siguientes opciones: 
+1. Venta de paquetes 
+2. Horarios disponibles de atención. 
+3. Productos disponibles 
+4. Historial de compras 
+5. Facturación de compras 
+9.	Solicitud al usuario que seleccione una opción correspondiente de las mencionadas anteriormente. 
+10.	Definir la venta de paquetes al cliente y demás opciones.
+11.	Imprimir el título de los paquetes y precio.
+12.	Solicitar al usuario que elija un paquete el cual desea adquirir, validar que se encuentre en las opciones 
+13.	Obtener el paquete seleccionado y solicitar al usuario la cantidad de paquetes.
+14.	Validar que la cantidad sea positiva.
+15.	Calcular el subtotal y le agregar la operación para el porcentaje del IVA al subtotal del precio.
+16.	Crear la operación para el total.
+17.	Imprimir un resumen de la compra, con las especificaciones y el total a pagar incluyendo el IVA.
+18.	Crear un historial de compras del usuario(en caso de que este no lo tenga).
+19.	Crear un print con el mensaje de que la compra ha sido realizada con éxito. 
+20.	Definir las variables horarios ( mañana, tarde y noche ) con sus horas establecidas respectivamente 
+21.	Definir las opciones de horarios (“ elige un horario (1-3)” )
+22.	Imprimir el mensaje de que el usuario ha seleccionado el horario valido, si no se imprime “opción invalida”
+23.	Solicitar al usuario que digite una opción válida de las correspondientes 
+24.	Definir la facturación del cliente y solicitamos que ingrese el subtotal de la compra
+25.	Aplicar el descuento y le calcular el IVA para imprimir el total a pagar 
+26.	Imprimir una factura que contenga el título, nombre, cedula y correo del cliente más el subtotal y el total con descuento aplicado.
